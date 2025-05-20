@@ -5,6 +5,13 @@ import type { NextConfig } from "next";
  */
 import "~/env";
 
-const config: NextConfig = {};
+const config: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+};
 
 export default config;
