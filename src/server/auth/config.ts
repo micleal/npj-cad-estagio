@@ -8,6 +8,7 @@ import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
   appName: "Cadastro de atendimentos NPJ",
+  baseURL: env.BETTER_AUTH_URL,
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
