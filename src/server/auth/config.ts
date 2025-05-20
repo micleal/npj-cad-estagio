@@ -2,15 +2,18 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { username } from "better-auth/plugins";
 import { db } from "~/server/db";
-
-import { env } from "~/env";
 import { nextCookies } from "better-auth/next-js";
 import { TRPCError } from "@trpc/server";
 
-console.log(env.BETTER_AUTH_URL);
+import { env } from "~/env";
 
 export const auth = betterAuth({
   appName: "Cadastro de atendimentos NPJ",
+  baseURL: env.BETTER_AUTH_URL.includes("http://")
+    ? env.BETTER_AUTH_URL
+    : env.BETTER_AUTH_URL.includes("https://")
+      ? env.BETTER_AUTH_URL
+      : `https://${env.BETTER_AUTH_URL}`,
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
@@ -25,7 +28,7 @@ export const auth = betterAuth({
   ],
   onAPIError: {
     throw: true,
-    onError: (error, ctx) => {
+    onError: (error) => {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: error as string,
