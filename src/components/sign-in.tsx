@@ -87,26 +87,22 @@ export function SignIn() {
             className="w-full"
             disabled={loading}
             onClick={async () => {
-              await signIn.username(
-                {
-                  username: ra,
-                  password,
-                  rememberMe,
-                  fetchOptions: {
-                    onSuccess: () => {
-                      router.push("/dashboard");
-                    },
+              await signIn.username({
+                username: ra,
+                password,
+                rememberMe,
+                fetchOptions: {
+                  onSuccess: () => {
+                    router.push("/dashboard");
                   },
-                },
-                {
-                  onRequest: (ctx) => {
+                  onRequest: () => {
                     setLoading(true);
                   },
-                  onResponse: (ctx) => {
+                  onResponse: () => {
                     setLoading(false);
                   },
                 },
-              );
+              });
             }}
           >
             {loading ? (
