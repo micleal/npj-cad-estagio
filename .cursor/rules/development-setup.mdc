@@ -1,0 +1,42 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Configuração do Ambiente de Desenvolvimento
+
+## Requisitos
+- Node.js 18.17.0+
+- Bun (gerenciador de pacotes)
+- PostgreSQL 15+
+- WSL2 (para Windows)
+
+## Passos de Instalação
+
+1. Clone o repositório e instale as dependências:
+```bash
+git clone https://github.com/micleal/npj-cad-estagio
+cd npj-cad-estagio
+bun install
+```
+
+2. Configure as variáveis de ambiente:
+- Copie [.env.example](mdc:.env.example) para `.env`
+- Preencha as variáveis necessárias
+
+3. Inicie o banco de dados:
+```bash
+./start-database.sh
+```
+
+4. Inicie o servidor de desenvolvimento:
+```bash
+bun dev
+```
+
+## Comandos Úteis
+- `bun run lint` - Verifica o código
+- `bun run format` - Formata o código
+- `bun run db:generate` - Gera tipos do Drizzle
+- `bun run db:push` - Atualiza schema do banco
+

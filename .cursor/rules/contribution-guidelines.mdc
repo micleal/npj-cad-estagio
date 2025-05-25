@@ -1,0 +1,52 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Diretrizes de Contribuição
+
+## Processo de Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature:
+```bash
+git checkout -b feature/nova-feature
+```
+
+3. Faça suas alterações seguindo os padrões:
+- Use TypeScript para todo o código
+- Siga as convenções de estilo do Biome
+- Adicione testes quando necessário
+- Documente alterações significativas
+
+4. Commit suas mudanças:
+```bash
+git commit -m 'Adiciona nova feature'
+```
+
+5. Push para sua branch:
+```bash
+git push origin feature/nova-feature
+```
+
+6. Abra um Pull Request
+
+## Padrões de Código
+
+- Use TypeScript para todo o código
+- Siga as convenções de estilo do Biome
+- Mantenha os componentes pequenos e focados
+- Use o tRPC para comunicação cliente-servidor
+- Documente funções e componentes complexos
+
+## Testes
+
+- Adicione testes para novas funcionalidades
+- Mantenha a cobertura de testes existente
+- Use o padrão de testes do Next.js
+
+## Documentação
+
+- Atualize a documentação quando necessário
+- Documente APIs e componentes complexos
+- Mantenha o README atualizado
