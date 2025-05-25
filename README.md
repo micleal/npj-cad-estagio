@@ -11,7 +11,7 @@ Este é um aplicativo web desenvolvido como atividade de estágio para alunos de
 - Acompanhamento do status do estágio
 - Interface intuitiva para alunos e coordenadores
 - Sistema de notificações para confirmações e lembretes
-- Armazenamento local dos dados
+- Armazenamento dos dados
 
 ## Tecnologias Utilizadas
 
