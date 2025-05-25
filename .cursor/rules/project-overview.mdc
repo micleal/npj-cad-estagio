@@ -1,0 +1,32 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# NPJ - Sistema de Agendamento de Estágio
+
+## Visão Geral
+Este é um sistema web desenvolvido para gerenciar agendamentos de estágio para alunos de Direito no NPJ da FMU. O projeto utiliza a T3 Stack com Next.js, React, TypeScript e PostgreSQL.
+
+## Estrutura Principal
+- [src/app](mdc:src/app) - Rotas e páginas da aplicação (Next.js App Router)
+- [src/components](mdc:src/components) - Componentes React reutilizáveis
+- [src/server](mdc:src/server) - Lógica do servidor e API
+- [src/lib](mdc:src/lib) - Utilitários e configurações
+- [src/trpc](mdc:src/trpc) - Configuração do tRPC
+
+## Tecnologias Principais
+- Next.js 15.3.2
+- React.js
+- TypeScript
+- TailwindCSS
+- Drizzle ORM
+- PostgreSQL
+- Biomejs (Linter/Formatter)
+
+## Scripts Importantes
+- `bun run dev` - Desenvolvimento
+- `bun run build` - Build de produção
+- `bun run db:generate` - Geração de tipos do Drizzle
+- `bun run db:push` - Atualização do schema do banco
+

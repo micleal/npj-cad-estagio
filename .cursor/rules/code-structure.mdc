@@ -1,0 +1,38 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Estrutura do Código
+
+## Diretórios Principais
+
+### src/app
+Contém as rotas e páginas da aplicação usando o Next.js App Router.
+- [layout.tsx](mdc:src/app/layout.tsx) - Layout principal da aplicação
+- [page.tsx](mdc:src/app/page.tsx) - Página inicial
+
+### src/components
+Componentes React reutilizáveis.
+- [ui](mdc:src/components/ui) - Componentes de interface básicos
+- [forms](mdc:src/components/forms) - Componentes de formulário
+
+### src/server
+Lógica do servidor e API.
+- [api](mdc:src/server/api) - Rotas da API
+- [db](mdc:src/server/db) - Configuração e schemas do banco de dados
+
+### src/lib
+Utilitários e configurações.
+- [utils](mdc:src/lib/utils) - Funções utilitárias
+- [constants](mdc:src/lib/constants) - Constantes do sistema
+
+### src/trpc
+Configuração do tRPC para comunicação cliente-servidor.
+- [api](mdc:src/trpc/api) - Definições das rotas tRPC
+- [shared](mdc:src/trpc/shared) - Tipos e utilitários compartilhados
+
+## Arquivos de Configuração
+- [drizzle.config.ts](mdc:drizzle.config.ts) - Configuração do Drizzle ORM
+- [next.config.ts](mdc:next.config.ts) - Configuração do Next.js
+- [tsconfig.json](mdc:tsconfig.json) - Configuração do TypeScript
