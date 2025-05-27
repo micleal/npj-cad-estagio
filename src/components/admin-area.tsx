@@ -1,0 +1,26 @@
+import Link from "next/link";
+import { PrintReportButton } from "./print-report-button";
+import { auth } from "~/server/auth";
+import { BackButton } from "./back-button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+
+export async function AdminArea() {
+  const session = await auth();
+
+  if (session?.user.role !== "admin") {
+    return null;
+  }
+
+  return (
+    <div className="flex items-center gap-2">
+      <BackButton />
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link href="/admin">Admin Area</Link>
+        </TooltipTrigger>
+        <TooltipContent>Ir para a área administrativa</TooltipContent>
+      </Tooltip>
+      <PrintReportButton />
+    </div>
+  );
+}

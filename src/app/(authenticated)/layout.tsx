@@ -6,10 +6,10 @@ import { HydrateClient } from "~/trpc/server";
 export default async function AuthenticatedLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-    return (
+  return (
     <HydrateClient>
       <AppHeader />
-      <main className="flex flex-col items-center justify-center">
+      <main className="flex h-full flex-1 flex-col items-center justify-center px-4 py-2">
         {children}
       </main>
     </HydrateClient>

@@ -6,13 +6,13 @@ import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { TRPCError } from "@trpc/server";
+import { DropdownMenuItem } from "./ui/dropdown-menu";
 
 export function SignOut() {
   const router = useRouter();
 
   return (
-    <Button
-      variant="outline"
+    <DropdownMenuItem
       onClick={async () =>
         await signOut({
           fetchOptions: {
@@ -32,6 +32,6 @@ export function SignOut() {
     >
       <LogOut />
       Sair
-    </Button>
+    </DropdownMenuItem>
   );
 }

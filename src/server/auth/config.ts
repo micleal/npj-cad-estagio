@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { username } from "better-auth/plugins";
+import { username, admin } from "better-auth/plugins";
 import { db } from "~/server/db";
 import { nextCookies } from "better-auth/next-js";
 import { TRPCError } from "@trpc/server";
@@ -21,6 +21,7 @@ export const auth = betterAuth({
     enabled: true,
   },
   plugins: [
+    admin(),
     nextCookies(),
     username({
       minUsernameLength: 7,
