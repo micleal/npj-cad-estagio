@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const appointmentRouter = createTRPCRouter({
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         name: z.string(),
@@ -13,5 +13,11 @@ export const appointmentRouter = createTRPCRouter({
         message: z.string(),
       }),
     )
-    .mutation(async ({ ctx, input }) => {}),
+    .mutation(async ({ ctx, input }) => {
+      const { name, email, phone, date, time, message } = input;
+
+      const appointment = await ctx.db.insert(appointment).values({
+        name,
+      });
+    }),
 });

@@ -5,6 +5,9 @@ import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Toaster } from "~/components/ui/sonner";
+import { ThemeProvider } from "next-themes";
+import { TooltipProvider } from "~/components/ui/tooltip";
+import { cn } from "~/lib/utils";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -21,11 +24,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
+    <html
+      lang="en"
+      className={cn("scroll-smooth antialiased", geist.variable)}
+      suppressHydrationWarning
+    >
       <body>
         <TRPCReactProvider>
-          {children}
-          <Toaster />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <TooltipProvider delayDuration={100}>
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </ThemeProvider>
         </TRPCReactProvider>
       </body>
     </html>

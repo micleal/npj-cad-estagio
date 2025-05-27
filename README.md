@@ -16,18 +16,18 @@ Este é um aplicativo web desenvolvido como atividade de estágio para alunos de
 ## Tecnologias Utilizadas
 
 - [T3 Stack](https://create.t3.gg/) (Framework full-stack type-safe)
-- Next.js 15.3.2
-- React.js
+- [Next.js](https://nextjs.org/) 15.3.2
+- [React.js](https://react.dev)
 - TypeScript
 - TailwindCSS
 - Drizzle ORM
-- PostgreSQL (Banco de dados local)
+- PostgreSQL (Banco de dados)
 - Biomejs (Linter e Formatter)
 
 ## Requisitos do Sistema
 
 - Node.js (versão 18.17.0 ou superior)
-- Bun (gerenciador de pacotes)
+- Pnpm (gerenciador de pacotes)
 - PostgreSQL 15 ou superior
 
 ## Instalação e Configuração
@@ -42,20 +42,21 @@ cd npj-cad-estagio
 2. Instale as dependências:
 
 ```bash
-bun install
+pnpm install
 ```
 
 3. Configure as variáveis de ambiente:
    - Copie o arquivo `.env.example` para `.env`
    - Preencha as variáveis necessárias
 
-4. Inicie o banco de dados PostgreSQL:
+4. Inicie o banco de dados PostgreSQL: 
+(Se você utiliza Windows precisa ter o WSL2 habilitado para executar o script no ambiente Linux)
 
 ```bash
 ./start-database.sh
 ```
 
-5. Inicie o aplicativo em modo de desenvolvimento:
+1. Inicie o aplicativo em modo de desenvolvimento:
 
 ```bash
 bun dev
@@ -63,13 +64,13 @@ bun dev
 
 ## Scripts Disponíveis
 
-- `bun run dev`: Inicia o aplicativo em modo de desenvolvimento
-- `bun run build`: Cria a build de produção
-- `bun run start`: Inicia o aplicativo em modo de produção
-- `bun run lint`: Executa a verificação de código
-- `bun run format`: Formata o código usando Biome
-- `bun run db:generate`: Gera os tipos do Drizzle ORM
-- `bun run db:push`: Atualiza o schema do banco de dados
+- `pnpm dev`: Inicia o aplicativo em modo de desenvolvimento
+- `pnpm build`: Cria a build de produção
+- `pnpm start`: Inicia o aplicativo em modo de produção
+- `pnpm lint`: Executa a verificação de código
+- `pnpm format`: Formata o código usando Biome
+- `pnpm db:generate`: Gera os tipos do Drizzle ORM
+- `pnpm db:push`: Atualiza o schema do banco de dados
 
 ## Estrutura do Projeto
 

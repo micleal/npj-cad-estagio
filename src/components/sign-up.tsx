@@ -58,7 +58,7 @@ export function SignUp() {
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="first-name">Nome</Label>
+              <Label htmlFor="first-name">Nome (*)</Label>
               <Input
                 id="first-name"
                 placeholder="Max"
@@ -70,7 +70,7 @@ export function SignUp() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="last-name">Sobrenome</Label>
+              <Label htmlFor="last-name">Sobrenome (*)</Label>
               <Input
                 id="last-name"
                 placeholder="Robinson"
@@ -83,7 +83,7 @@ export function SignUp() {
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="username">RA</Label>
+            <Label htmlFor="username">RA (*)</Label>
             <Input
               id="username"
               name="username"
@@ -94,7 +94,7 @@ export function SignUp() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Email (*)</Label>
             <Input
               id="email"
               name="email"
@@ -108,11 +108,12 @@ export function SignUp() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Senha</Label>
+            <Label htmlFor="password">Senha (*)</Label>
             <Input
               id="password"
               name="password"
               type="password"
+              required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
@@ -120,11 +121,12 @@ export function SignUp() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Confirmar Senha</Label>
+            <Label htmlFor="password_confirmation">Confirmar Senha (*)</Label>
             <Input
               id="password_confirmation"
               name="password_confirmation"
               type="password"
+              required
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
               autoComplete="new-password"
@@ -203,6 +205,9 @@ export function SignUp() {
               "Criar conta"
             )}
           </Button>
+          <p className="items-center text-neutral-500 text-sm">
+            (*) Campos obrigatórios
+          </p>
         </div>
       </CardContent>
       <CardFooter>
