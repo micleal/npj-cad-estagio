@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
+import { SignUpForm } from "~/components/signup-form";
 import { auth } from "~/server/auth";
 import { HydrateClient } from "~/trpc/server";
-import { SignUpForm } from "~/components/signup-form";
 
 export default async function AdminPage() {
   const session = await auth();

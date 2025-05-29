@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { attendanceSchedule, dailyScheduleLimit } from "~/server/db/schema";
 import { eq } from "drizzle-orm";
+import { z } from "zod";
+import { attendanceSchedule, dailyScheduleLimit } from "~/server/db/schema";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const scheduleRouter = createTRPCRouter({
   create: protectedProcedure
@@ -94,4 +94,14 @@ export const scheduleRouter = createTRPCRouter({
         attendanceScheduleInfo,
       };
     }),
+  getUnavailableDates: protectedProcedure.query(async ({ ctx }) => {
+    const dates = await ctx.db.query.dailyScheduleLimit.findMany({
+      where: (dailyScheduleLimit, { eq }) =>
+        eq(dailyScheduleLimit.currentRegistrations, dailyScheduleLimit.maxRegistrations),
+    });
+
+    console.log("dates", dates);
+
+    return dates;
+  }),
 });

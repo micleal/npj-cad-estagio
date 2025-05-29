@@ -1,20 +1,8 @@
-import { auth } from "~/server/auth";
 import { redirect } from "next/navigation";
-import {
-  Calendar,
-  CalendarPrevTrigger,
-  CalendarMonthView,
-  CalendarWeekView,
-  CalendarDayView,
-  CalendarNextTrigger,
-  CalendarTodayTrigger,
-  CalendarCurrentDate,
-  CalendarViewTrigger,
-  CalendarYearView,
-} from "~/components/ui/full-calendar";
-import { ChevronLeft } from "lucide-react";
-import { ModeToggle } from "~/components/mode-toggle";
-import { ChevronRight } from "lucide-react";
+import { Button } from "~/components/ui/button";
+import { auth } from "~/server/auth";
+import { DateTimePicker } from "~/components/datetime-picker";
+import { CalendarIcon } from "lucide-react";
 
 export default async function Dashboard() {
   const session = await auth();
@@ -22,15 +10,29 @@ export default async function Dashboard() {
   if (!session) {
     redirect("/");
   }
-  
+
   return (
-    <div className="flex w-full flex-1 flex-col gap-4">
-      <h1 className="font-bold text-2xl">Dashboard</h1>
+    <div className="container mx-auto my-2 flex w-full flex-1 flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <h1 className="font-bold text-2xl">Dashboard</h1>
+        <p className="text-base text-muted-foreground italic">
+          Bem-vindo, {session.user.name.split(" ")[0]}!
+        </p>
+      </div>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-4">
-          <h2 className="font-bold text-xl">Calendar</h2>
-          
-        </div>
+        <section id="appointments" className="flex flex-col gap-4">
+          <h2 className="font-medium text-lg">Agendamentos</h2>
+          <div className="flex items-center justify-between gap-2">
+            <DateTimePicker />
+            <div className="flex items-center gap-2">
+              <Button variant="outline">
+                <CalendarIcon className="size-4" />
+                <span>Hoje</span>
+              </Button>
+            </div>
+          </div>
+        </section>
+        <section className="flex flex-col gap-4"></section>
       </div>
     </div>
   );

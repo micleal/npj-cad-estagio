@@ -1,6 +1,6 @@
 import { appointmentRouter } from "~/server/api/routers/appointment";
-import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { scheduleRouter } from "~/server/api/routers/schedule";
+import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { printRouter } from "./routers/print";
 
 /**

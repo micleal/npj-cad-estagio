@@ -1,9 +1,9 @@
 "use client";
 
 import { PrinterIcon } from "lucide-react";
+import { useSession } from "~/lib/auth-client";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { useSession } from "~/lib/auth-client";
 
 export function PrintReportButton() {
   const { data: session } = useSession();

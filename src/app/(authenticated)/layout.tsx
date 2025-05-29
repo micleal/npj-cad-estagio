@@ -1,6 +1,4 @@
-import { redirect } from "next/navigation";
 import { AppHeader } from "~/components/app-header";
-import { auth } from "~/server/auth";
 import { HydrateClient } from "~/trpc/server";
 
 export default async function AuthenticatedLayout({

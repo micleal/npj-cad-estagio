@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { PrintReportButton } from "./print-report-button";
 import { auth } from "~/server/auth";
 import { BackButton } from "./back-button";
+import { PrintReportButton } from "./print-report-button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export async function AdminArea() {

@@ -1,17 +1,15 @@
 import { User } from "lucide-react";
-import Link from "next/link";
+import { auth } from "~/server/auth";
+import { SignOut } from "./sign-out";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { auth } from "~/server/auth";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { SignOut } from "./sign-out";
 
 export async function UserButton() {
   const session = await auth();
@@ -45,7 +43,7 @@ export async function UserButton() {
             </p>
           </div>
         </DropdownMenuLabel>
-        
+
         <DropdownMenuSeparator />
         <SignOut />
       </DropdownMenuContent>

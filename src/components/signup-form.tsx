@@ -1,6 +1,15 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { signUp } from "~/lib/auth-client";
+import { convertImageToBase64 } from "~/lib/image";
+import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
@@ -9,28 +18,18 @@ import {
   CardTitle,
 } from "./ui/card";
 import {
+  Form,
   FormControl,
   FormField,
-  FormLabel,
-  Form,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { signUp } from "~/lib/auth-client";
-import { convertImageToBase64 } from "~/lib/image";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { Button } from "./ui/button";
-import { Loader2Icon } from "lucide-react";
-import { Switch } from "./ui/switch";
 import {
   Select,
-  SelectItem,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "./ui/select";

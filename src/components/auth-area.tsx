@@ -1,9 +1,9 @@
 "use client";
 
-import { SignUp } from "./sign-up";
-import { SignIn } from "./sign-in";
-import { signUpAtom } from "~/hooks/use-signup";
 import { useAtomValue } from "jotai";
+import { signUpAtom } from "~/hooks/use-signup";
+import { SignIn } from "./sign-in";
+import { SignUp } from "./sign-up";
 
 export function AuthArea() {
   const signUp = useAtomValue(signUpAtom);

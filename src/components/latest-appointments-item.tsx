@@ -1,4 +1,4 @@
-import { CircleCheckIcon, Trash2Icon, TrashIcon } from "lucide-react";
+import { CircleCheckIcon, Trash2Icon } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 

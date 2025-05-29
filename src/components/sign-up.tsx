@@ -16,8 +16,8 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
-import { signUpAtom } from "~/hooks/use-signup";
 import { Label } from "~/components/ui/label";
+import { signUpAtom } from "~/hooks/use-signup";
 import { signUp } from "~/lib/auth-client";
 import { convertImageToBase64 } from "~/lib/image";
 
