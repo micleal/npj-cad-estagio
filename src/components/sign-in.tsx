@@ -20,6 +20,7 @@ import { signUpAtom } from "~/hooks/use-signup";
 import { signIn } from "~/lib/auth-client";
 import { cn } from "~/lib/utils";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function SignIn() {
   const [ra, setRA] = useState("");
@@ -100,6 +101,9 @@ export function SignIn() {
                   },
                   onResponse: () => {
                     setLoading(false);
+                  },
+                  onError: (ctx) => {
+                    toast.error(ctx.error.message);
                   },
                 },
               });

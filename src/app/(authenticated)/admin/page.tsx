@@ -1,14 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "~/server/auth";
 import { HydrateClient } from "~/trpc/server";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
-import { SignUp } from "~/components/sign-up";
+import { SignUpForm } from "~/components/signup-form";
 
 export default async function AdminPage() {
   const session = await auth();
@@ -26,17 +19,7 @@ export default async function AdminPage() {
       <div className="flex w-full flex-1 flex-col">
         <h1 className="font-bold text-2xl">Admin</h1>
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="w-full">
-            <CardHeader>
-              <CardTitle>Adicionar usuário</CardTitle>
-              <CardDescription>
-                Adicione um novo usuário ao sistema
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <SignUp />
-            </CardContent>
-          </Card>
+          <SignUpForm />
         </section>
       </div>
     </HydrateClient>

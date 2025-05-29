@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { username, admin } from "better-auth/plugins";
 import { db } from "~/server/db";
@@ -29,11 +30,31 @@ export const auth = betterAuth({
   ],
   onAPIError: {
     throw: true,
-    onError: (error) => {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: error as string,
-      });
+    onError: (error, ctx) => {
+      if (error instanceof APIError) {
+        throw new TRPCError({
+          code: error.status as TRPCError["code"],
+          message: error.body?.message,
+        });
+      }
     },
+  },
+  hooks: {
+    before: createAuthMiddleware(async (ctx) => {
+      // Se a rota não for de cadastro, retorna
+      if (ctx.path !== "/sign-up/email" && ctx.path !== "/sign-up/username") {
+        return;
+      }
+      // Verifica se o email é do domínio @fmu.edu.br
+      if (
+        !ctx.body?.email.endsWith("@fmu.edu.br") ||
+        !ctx.body?.email.endsWith("@fmu.br")
+      ) {
+        // Se não for, retorna um erro
+        throw new APIError("BAD_REQUEST", {
+          message: "Email deve ser o email institucional",
+        });
+      }
+    }),
   },
 });

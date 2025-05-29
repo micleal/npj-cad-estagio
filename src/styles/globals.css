@@ -120,6 +120,6 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply flex min-h-dvh flex-1 flex-col not-dark:bg-accent;
+		@apply flex min-h-dvh flex-1 flex-col bg-accent;
 	}
 }

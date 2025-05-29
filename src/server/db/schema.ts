@@ -31,7 +31,7 @@ export const user = createTable("user", (d) => ({
     .timestamp("updated_at", { withTimezone: true })
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: d.text("role"),
+  role: d.text("role").$defaultFn(() => "user"),
   banned: d.boolean("banned"),
   banReason: d.text("ban_reason"),
   banExpires: d.timestamp("ban_expires"),
