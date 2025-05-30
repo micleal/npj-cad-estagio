@@ -1,8 +1,11 @@
 import { redirect } from "next/navigation";
 import { Button } from "~/components/ui/button";
+import { api } from "~/trpc/server";
 import { auth } from "~/server/auth";
 import { DateTimePicker } from "~/components/datetime-picker";
 import { CalendarIcon } from "lucide-react";
+import { AppointmentsDataTable } from "~/components/appointments-datatable";
+import { appointmentColumns } from "./_components/appointment-columns";
 
 export default async function Dashboard() {
   const session = await auth();
@@ -10,6 +13,18 @@ export default async function Dashboard() {
   if (!session) {
     redirect("/");
   }
+
+  const student = await api.student.getStudentByUserId({
+    userId: session?.user.id,
+  });
+
+  if (!student) {
+    return <div>Informações do estudante não encontradas</div>;
+  }
+
+  const appointments = await api.schedule.getUserScheduledDates();
+
+  console.log("appointments", appointments);
 
   return (
     <div className="container mx-auto my-2 flex w-full flex-1 flex-col gap-4">
@@ -31,8 +46,11 @@ export default async function Dashboard() {
               </Button>
             </div>
           </div>
+          <div className="flex gap-2">
+            <AppointmentsDataTable columns={appointmentColumns} data={appointments} />
+          </div>
         </section>
-        <section className="flex flex-col gap-4"></section>
+        {/* <section className="flex flex-col gap-4"></section> */}
       </div>
     </div>
   );

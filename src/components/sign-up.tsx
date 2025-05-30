@@ -20,6 +20,7 @@ import { Label } from "~/components/ui/label";
 import { signUpAtom } from "~/hooks/use-signup";
 import { signUp } from "~/lib/auth-client";
 import { convertImageToBase64 } from "~/lib/image";
+import { api } from "~/trpc/react";
 
 export function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -35,6 +36,13 @@ export function SignUp() {
 
   const setSignUp = useSetAtom(signUpAtom);
 
+  const studentMutation = api.student.create.useMutation({
+    onSuccess: () => {
+      toast.success("Conta criada com sucesso!");
+      router.push("/dashboard");
+    },
+  });
+  
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -84,17 +92,6 @@ export function SignUp() {
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="username">RA (*)</Label>
-            <Input
-              id="username"
-              name="username"
-              type="username"
-              placeholder="RA"
-              required
-              onChange={(e) => setRA(e.target.value)}
-            />
-          </div>
-          <div className="grid gap-2">
             <Label htmlFor="email">Email (*)</Label>
             <Input
               id="email"
@@ -106,6 +103,17 @@ export function SignUp() {
                 setEmail(e.target.value);
               }}
               value={email}
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="username">RA (*)</Label>
+            <Input
+              id="username"
+              name="username"
+              type="username"
+              placeholder="RA"
+              required
+              onChange={(e) => setRA(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
@@ -177,8 +185,9 @@ export function SignUp() {
                 email,
                 password,
                 name: `${firstName} ${lastName}`,
-                username: ra,
                 image: image ? await convertImageToBase64(image) : "",
+                role: "user",
+                ra,
                 callbackURL: "/dashboard",
                 fetchOptions: {
                   onResponse: () => {
@@ -190,8 +199,11 @@ export function SignUp() {
                   onError: (ctx) => {
                     toast.error(ctx.error.message);
                   },
-                  onSuccess: async () => {
-                    router.push("/dashboard");
+                  onSuccess: async ({ data }) => {     
+                    studentMutation.mutate({
+                      ra,
+                      name: `${firstName} ${lastName}`,
+                    });
                   },
                 },
               });

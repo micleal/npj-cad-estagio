@@ -37,7 +37,7 @@ export async function UserButton() {
           <div className="flex flex-col text-right">
             <p className="font-semibold text-sm">{user?.name}</p>
             <p className="text-muted-foreground text-sx">
-              RA: {user?.username}
+              RA: {user?.ra}
             </p>
           </div>
         </DropdownMenuLabel>
