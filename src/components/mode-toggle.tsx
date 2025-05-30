@@ -1,10 +1,9 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
-import { TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { Tooltip } from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();

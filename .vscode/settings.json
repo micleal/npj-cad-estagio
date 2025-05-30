@@ -1,15 +1,28 @@
 {
   "editor.defaultFormatter": "biomejs.biome",
-  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlayHints.enabled": "on"
+  },
   "[typescript]": {
     "editor.defaultFormatter": "biomejs.biome",
-    "editor.formatOnSave": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlayHints.enabled": "on"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlayHints.enabled": "on"
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome",
-    "editor.formatOnSave": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlayHints.enabled": "on"
   },
-  "[javascript]": {
+  "[json]": {
     "editor.defaultFormatter": "biomejs.biome",
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlayHints.enabled": "on"
   }
 }

@@ -1,6 +1,5 @@
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const printRouter = createTRPCRouter({
   report: protectedProcedure
@@ -14,7 +13,5 @@ export const printRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const { userId, type, startDate, endDate } = input;
-
-      
     }),
 });

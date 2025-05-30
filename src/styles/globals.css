@@ -123,3 +123,12 @@
 		@apply flex min-h-dvh flex-1 flex-col bg-accent;
 	}
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+	}
+  body {
+    @apply bg-background text-foreground;
+	}
+}

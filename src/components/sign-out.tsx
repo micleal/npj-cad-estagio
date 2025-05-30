@@ -1,11 +1,10 @@
 "use client";
 
-import { signOut } from "~/lib/auth-client";
-import { Button } from "./ui/button";
+import { TRPCError } from "@trpc/server";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { TRPCError } from "@trpc/server";
+import { signOut } from "~/lib/auth-client";
 import { DropdownMenuItem } from "./ui/dropdown-menu";
 
 export function SignOut() {

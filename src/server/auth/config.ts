@@ -1,10 +1,10 @@
-import { betterAuth } from "better-auth";
-import { APIError, createAuthMiddleware } from "better-auth/api";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { username, admin } from "better-auth/plugins";
-import { db } from "~/server/db";
-import { nextCookies } from "better-auth/next-js";
 import { TRPCError } from "@trpc/server";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { APIError, createAuthMiddleware } from "better-auth/api";
+import { nextCookies } from "better-auth/next-js";
+import { admin, username } from "better-auth/plugins";
+import { db } from "~/server/db";
 
 import { env } from "~/env";
 

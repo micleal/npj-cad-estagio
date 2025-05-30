@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { LatestAppointmentsItem } from "./latest-appointments-item";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 export function LatestAppointmentsCard() {
   return (
