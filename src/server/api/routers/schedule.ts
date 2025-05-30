@@ -87,7 +87,8 @@ export const scheduleRouter = createTRPCRouter({
           attendanceType: "registration",
           dailyScheduleId: schedule[0].id,
           notes: description,
-        });
+        })
+        .returning();
 
       return {
         studentInfo,
@@ -97,7 +98,10 @@ export const scheduleRouter = createTRPCRouter({
   getUnavailableDates: protectedProcedure.query(async ({ ctx }) => {
     const dates = await ctx.db.query.dailyScheduleLimit.findMany({
       where: (dailyScheduleLimit, { eq }) =>
-        eq(dailyScheduleLimit.currentRegistrations, dailyScheduleLimit.maxRegistrations),
+        eq(
+          dailyScheduleLimit.currentRegistrations,
+          dailyScheduleLimit.maxRegistrations,
+        ),
     });
 
     console.log("dates", dates);

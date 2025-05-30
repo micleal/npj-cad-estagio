@@ -16,12 +16,10 @@ export async function UserButton() {
 
   const user = session?.user;
 
-  user.role = "admin";
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="user">
+        <Button variant="outline">
           <Avatar className="size-7">
             <AvatarImage src={user?.image ?? undefined} />
             <AvatarFallback>

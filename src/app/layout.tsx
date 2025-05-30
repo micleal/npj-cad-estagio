@@ -2,7 +2,7 @@ import "~/styles/globals.css";
 
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-
+import Script from "next/script";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "~/components/ui/sonner";
 import { TooltipProvider } from "~/components/ui/tooltip";
@@ -30,6 +30,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
+        <Script
+          crossOrigin="anonymous"
+          src="//unpkg.com/react-scan/dist/auto.global.js"
+        />
         <TRPCReactProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <TooltipProvider delayDuration={100}>
