@@ -22,7 +22,7 @@ import { signUpAtom } from "~/hooks/use-signup";
 import { signIn } from "~/lib/auth-client";
 
 export function SignIn() {
-  const [ra, setRA] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -34,23 +34,23 @@ export function SignIn() {
       <CardHeader>
         <CardTitle className="text-lg md:text-xl">Entrar</CardTitle>
         <CardDescription className="text-xs md:text-sm">
-          Insira seu RA abaixo para entrar na sua conta
+          Insira seu email abaixo para entrar na sua conta
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="username">RA</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
-              id="username"
-              name="username"
-              type="text"
-              placeholder="RA"
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Email"
               required
               onChange={(e) => {
-                setRA(e.target.value);
+                setEmail(e.target.value);
               }}
-              value={ra}
+              value={email}
             />
           </div>
 
@@ -87,8 +87,8 @@ export function SignIn() {
             className="w-full"
             disabled={loading}
             onClick={async () => {
-              await signIn.username({
-                username: ra,
+              await signIn.email({
+                email,
                 password,
                 rememberMe,
                 fetchOptions: {

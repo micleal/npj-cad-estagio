@@ -1,6 +1,10 @@
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { attendanceSchedule, dailyScheduleLimit } from "~/server/db/schema";
+import {
+  attendanceSchedule,
+  dailyScheduleLimit,
+  session,
+} from "~/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const scheduleRouter = createTRPCRouter({
@@ -52,7 +56,8 @@ export const scheduleRouter = createTRPCRouter({
             status: "scheduled",
             attendanceType: "registration",
             notes: description,
-          });
+          })
+          .returning();
 
         return {
           studentInfo,
@@ -95,6 +100,36 @@ export const scheduleRouter = createTRPCRouter({
         attendanceScheduleInfo,
       };
     }),
+  getUserScheduledDates: protectedProcedure.query(async ({ ctx }) => {
+    const { id: userId } = ctx.session.user;
+
+    const student = await ctx.db.query.studentInfo.findFirst({
+      where: (studentInfo, { eq }) => eq(studentInfo.userId, userId),
+    });
+
+    if (!student) {
+      throw new Error("Student not found");
+    }
+
+    const scheduledDates = await ctx.db.query.attendanceSchedule.findMany({
+      where: (attendanceSchedule, { eq }) =>
+        eq(attendanceSchedule.studentId, student.id),
+    });
+
+    const userScheduledDates = scheduledDates.map((date) => ({
+      id: date.id,
+      scheduledDate: date.scheduledDate,
+      status: date.status,
+      attendanceType: date.attendanceType,
+      student: {
+        id: student.id,
+        name: student.name,
+        ra: student.ra,
+      },
+    }));
+
+    return userScheduledDates;
+  }),
   getUnavailableDates: protectedProcedure.query(async ({ ctx }) => {
     const dates = await ctx.db.query.dailyScheduleLimit.findMany({
       where: (dailyScheduleLimit, { eq }) =>
@@ -103,8 +138,6 @@ export const scheduleRouter = createTRPCRouter({
           dailyScheduleLimit.maxRegistrations,
         ),
     });
-
-    console.log("dates", dates);
 
     return dates;
   }),

@@ -18,6 +18,7 @@ export const user = createTable("user", (d) => ({
   id: d.text("id").primaryKey(),
   name: d.text("name").notNull(),
   email: d.text("email").notNull().unique(),
+  ra: d.text("ra").unique(),
   emailVerified: d
     .boolean("email_verified")
     .$defaultFn(() => false)
@@ -31,11 +32,12 @@ export const user = createTable("user", (d) => ({
     .timestamp("updated_at", { withTimezone: true })
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: d.text("role").$defaultFn(() => "user"),
+  role: d
+    .text("role", { enum: ["user", "admin", "student"] })
+    .$defaultFn(() => "user"),
   banned: d.boolean("banned"),
   banReason: d.text("ban_reason"),
   banExpires: d.timestamp("ban_expires"),
-  username: d.text("username").unique(),
   displayUsername: d.text("display_username"),
 }));
 
@@ -182,11 +184,15 @@ export const studentProfile = createTable("student_profile", (d) => ({
 }));
 
 export const studentInfo = createTable("student_info", (d) => ({
-  id: d.text("id").primaryKey(),
+  id: d
+    .text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   userId: d
     .text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  name: d.text("name").notNull(),
   ra: d.text("ra").notNull().unique(), // Registro Acadêmico
   course: d.text("course"),
   semester: d.integer("semester"),

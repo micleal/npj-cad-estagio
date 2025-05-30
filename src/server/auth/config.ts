@@ -1,9 +1,10 @@
 import { TRPCError } from "@trpc/server";
 import { betterAuth } from "better-auth";
+import { z } from "zod";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { nextCookies } from "better-auth/next-js";
-import { admin, username } from "better-auth/plugins";
+import { admin } from "better-auth/plugins";
 import { db } from "~/server/db";
 
 import { env } from "~/env";
@@ -21,13 +22,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [
-    admin(),
-    nextCookies(),
-    username({
-      minUsernameLength: 7,
-    }),
-  ],
+  plugins: [admin(), nextCookies()],
   onAPIError: {
     throw: true,
     onError: (error, ctx) => {
@@ -39,15 +34,30 @@ export const auth = betterAuth({
       }
     },
   },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        enum: ["user", "admin", "student"],
+        default: "user",
+        input: false,
+      },
+      ra: {
+        type: "string",
+        required: true,
+        input: true,
+      },
+    },
+  },
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
       // Se a rota não for de cadastro, retorna
       if (ctx.path !== "/sign-up/email" && ctx.path !== "/sign-up/username") {
         return;
       }
-      // Verifica se o email é do domínio @fmu.edu.br
+      // Verifica se o email é do domínio @fmu.edu.br ou @fmu.br
       if (
-        !ctx.body?.email.endsWith("@fmu.edu.br") ||
+        !ctx.body?.email.endsWith("@fmu.edu.br") &&
         !ctx.body?.email.endsWith("@fmu.br")
       ) {
         // Se não for, retorna um erro
