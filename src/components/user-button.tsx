@@ -1,4 +1,4 @@
-import { User } from "lucide-react";
+import { ShieldUserIcon, User } from "lucide-react";
 import { auth } from "~/server/auth";
 import { SignOut } from "./sign-out";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export async function UserButton() {
   const session = await auth();
@@ -26,8 +27,14 @@ export async function UserButton() {
               <User />
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
+          <div className="flex flex-row items-center gap-2">
             <p className="font-semibold">{user?.name?.split(" ")[0]}</p>
+            {user?.role === "admin" && (
+              <div className="flex flex-row items-center gap-0.5">
+                <ShieldUserIcon className="size-4 text-muted-foreground" />
+                <p className="text-muted-foreground text-xs">Admin</p>
+              </div>
+            )}
           </div>
           <span className="sr-only">Open menu</span>
         </Button>
@@ -36,9 +43,7 @@ export async function UserButton() {
         <DropdownMenuLabel>
           <div className="flex flex-col text-right">
             <p className="font-semibold text-sm">{user?.name}</p>
-            <p className="text-muted-foreground text-sx">
-              RA: {user?.ra}
-            </p>
+            <p className="text-muted-foreground text-sx">RA: {user?.ra}</p>
           </div>
         </DropdownMenuLabel>
 

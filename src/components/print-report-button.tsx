@@ -15,8 +15,9 @@ export function PrintReportButton() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" size="icon" title="Imprimir relatório">
+        <Button variant="outline" title="Imprimir relatório">
           <PrinterIcon className="size-4" />
+          Imprimir
         </Button>
       </TooltipTrigger>
       <TooltipContent className="border border-border bg-background">

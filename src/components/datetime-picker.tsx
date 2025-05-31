@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, CalendarPlusIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -204,8 +204,12 @@ export function DateTimePicker() {
               </FormItem>
             )}
           />
-          <Button type="submit">
-            <span>Agendar</span>
+          <Button
+            type="submit"
+            className="border border-primary bg-primary/50 text-foreground transition-none hover:bg-primary/70"
+          >
+            <CalendarPlusIcon className="size-4" />
+            Agendar
           </Button>
         </div>
       </form>

@@ -4,6 +4,7 @@ import {
   attendanceSchedule,
   dailyScheduleLimit,
   session,
+  studentInfo,
 } from "~/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -100,6 +101,32 @@ export const scheduleRouter = createTRPCRouter({
         attendanceScheduleInfo,
       };
     }),
+  getAllUsersScheduledDates: protectedProcedure.query(async ({ ctx }) => {
+    const scheduledDates = await ctx.db
+      .select()
+      .from(attendanceSchedule)
+      .leftJoin(studentInfo, eq(attendanceSchedule.studentId, studentInfo.id));
+
+    const allUsersScheduledDates = scheduledDates.map((d) => {
+      if (d.student_info) {
+        return {
+          id: d.attendance_schedule.id,
+          scheduledDate: d.attendance_schedule.scheduledDate,
+          status: d.attendance_schedule.status,
+          attendanceType: d.attendance_schedule.attendanceType,
+          student: {
+            id: d.student_info.id,
+            name: d.student_info.name,
+            ra: d.student_info.ra,
+          },
+        };
+      }
+
+      return null;
+    });
+
+    return allUsersScheduledDates.filter((d) => d !== null);
+  }),
   getUserScheduledDates: protectedProcedure.query(async ({ ctx }) => {
     const { id: userId } = ctx.session.user;
 
@@ -128,7 +155,7 @@ export const scheduleRouter = createTRPCRouter({
       },
     }));
 
-    return userScheduledDates;
+    return userScheduledDates ?? [];
   }),
   getUnavailableDates: protectedProcedure.query(async ({ ctx }) => {
     const dates = await ctx.db.query.dailyScheduleLimit.findMany({
