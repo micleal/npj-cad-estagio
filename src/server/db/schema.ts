@@ -243,10 +243,16 @@ export const attendanceSchedule = createTable("attendance_schedule", (d) => ({
     .timestamp("scheduled_date", { withTimezone: true })
     .notNull(),
   status: d
-    .text("status")
+    .text("status", {
+      enum: ["scheduled", "completed", "absent", "cancelled"],
+    })
     .notNull()
-    .$defaultFn(() => "scheduled"), // "scheduled", "completed", "missed", "cancelled"
-  attendanceType: d.text("attendance_type").notNull(), // "registration", "verification", "other"
+    .$defaultFn(() => "scheduled"),
+  attendanceType: d
+    .text("attendance_type", {
+      enum: ["registration", "verification", "other"],
+    })
+    .notNull(),
   notes: d.text("notes"),
   verifiedBy: d.text("verified_by").references(() => user.id),
   verifiedAt: d.timestamp("verified_at", { withTimezone: true }),
