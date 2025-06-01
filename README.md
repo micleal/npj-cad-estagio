@@ -98,7 +98,7 @@ npj-cad-estagio/
 
 Este projeto é mantido pelos estagiários de Ciência da Computação da FMU. Para contribuir:
 
-1. Faça um fork do projeto
+1. Faça um [fork](https://github.com/micleal/npj-cad-estagio/fork) do projeto
 2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
 3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
 4. Push para a branch (`git push origin feature/nova-feature`)
