@@ -34,4 +34,9 @@ export const studentRouter = createTRPCRouter({
 
       return student;
     }),
+  getAllStudents: protectedProcedure.query(async ({ ctx }) => {
+    const students = await db.query.studentInfo.findMany();
+
+    return students;
+  }),
 });

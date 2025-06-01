@@ -29,18 +29,6 @@ export default async function Dashboard() {
     redirect("/");
   }
 
-  const student = await api.student.getStudentByUserId({
-    userId: session?.user.id,
-  });
-
-  if (!student) {
-    return (
-      <div className="container mx-auto my-2 flex w-full flex-1">
-        Informações do estudante não encontradas
-      </div>
-    );
-  }
-
   let appointments: UserScheduledDates[] = [];
 
   if (session.user.role === "admin") {
@@ -48,8 +36,6 @@ export default async function Dashboard() {
   } else {
     appointments = await api.schedule.getUserScheduledDates();
   }
-
-  console.log(appointments);
 
   return (
     <div className="container mx-auto my-2 flex w-full flex-1 flex-col gap-4">
@@ -70,7 +56,7 @@ export default async function Dashboard() {
             />
           </div>
         </section>
-        {session.user.role === "admin" && (
+        {/* {session.user.role === "admin" && (
           <section className="mt-2 flex w-full gap-4">
             <div className="flex w-full flex-1 flex-col gap-4">
               <h2 className="font-medium text-lg">Cadastrar estagiário</h2>
@@ -85,7 +71,7 @@ export default async function Dashboard() {
               <h2 className="font-medium text-lg">Cadastrar administrador</h2>
             </div>
           </section>
-        )}
+        )} */}
       </div>
     </div>
   );
