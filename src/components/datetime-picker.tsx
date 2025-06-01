@@ -65,9 +65,21 @@ export function DateTimePicker() {
       router.refresh();
     },
     onError: ({ shape }) => {
+      let description = "Erro ao agendar atendimento";
+      if (shape?.message === "Student has already scheduled 3 dates") {
+        description = "Você já possui 3 atendimentos agendados";
+      } else if (shape?.message === "Schedule is full") {
+        description =
+          "O atendimento não pode ser agendado, pois o dia está lotado";
+      } else if (shape?.message === "Student not found") {
+        description = "Aluno não encontrado";
+      } else if (shape?.message === "Invalid date") {
+        description = "Data inválida";
+      }
+
       toast.error("Erro ao agendar atendimento", {
         id: "error-toast",
-        description: `Código do erro: ${shape?.code}`,
+        description: description,
         action: {
           label: "Fechar",
           onClick: () => {

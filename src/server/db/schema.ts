@@ -245,7 +245,7 @@ export const attendanceSchedule = createTable("attendance_schedule", (d) => ({
   status: d
     .text("status")
     .notNull()
-    .$defaultFn(() => "scheduled"), // "scheduled", "completed", "missed"
+    .$defaultFn(() => "scheduled"), // "scheduled", "completed", "missed", "cancelled"
   attendanceType: d.text("attendance_type").notNull(), // "registration", "verification", "other"
   notes: d.text("notes"),
   verifiedBy: d.text("verified_by").references(() => user.id),

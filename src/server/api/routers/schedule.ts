@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, asc, desc, eq, not } from "drizzle-orm";
 import { z } from "zod";
 import {
   attendanceSchedule,
@@ -32,39 +32,24 @@ export const scheduleRouter = createTRPCRouter({
         throw new Error("Student not found");
       }
 
+      const countScheduledDates = await ctx.db.$count(
+        attendanceSchedule,
+        and(
+          eq(attendanceSchedule.studentId, studentInfo.id),
+          not(eq(attendanceSchedule.status, "cancelled")),
+        ),
+      );
+
+      console.log("countScheduledDates:", countScheduledDates);
+
+      if (countScheduledDates >= 3) {
+        throw new Error("Student has already scheduled 3 dates");
+      }
+
       const verifySchedule = await ctx.db.query.dailyScheduleLimit.findFirst({
         where: (dailyScheduleLimit, { eq }) =>
           eq(dailyScheduleLimit.date, startDateString),
       });
-
-      if (
-        verifySchedule &&
-        verifySchedule.currentRegistrations < verifySchedule.maxRegistrations
-      ) {
-        await ctx.db
-          .update(dailyScheduleLimit)
-          .set({
-            currentRegistrations: verifySchedule.currentRegistrations + 1,
-          })
-          .where(eq(dailyScheduleLimit.id, verifySchedule.id));
-
-        const attendanceScheduleInfo = await ctx.db
-          .insert(attendanceSchedule)
-          .values({
-            studentId: studentInfo.id,
-            scheduledDate: startDate,
-            dailyScheduleId: verifySchedule.id,
-            status: "scheduled",
-            attendanceType: "registration",
-            notes: description,
-          })
-          .returning();
-
-        return {
-          studentInfo,
-          attendanceScheduleInfo,
-        };
-      }
 
       if (
         verifySchedule &&
@@ -105,7 +90,8 @@ export const scheduleRouter = createTRPCRouter({
     const scheduledDates = await ctx.db
       .select()
       .from(attendanceSchedule)
-      .leftJoin(studentInfo, eq(attendanceSchedule.studentId, studentInfo.id));
+      .leftJoin(studentInfo, eq(attendanceSchedule.studentId, studentInfo.id))
+      .orderBy(asc(attendanceSchedule.scheduledDate));
 
     const allUsersScheduledDates = scheduledDates.map((d) => {
       if (d.student_info) {
