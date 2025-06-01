@@ -53,7 +53,7 @@ export function DateTimePicker() {
 
   const scheduleMutation = api.schedule.create.useMutation({
     onSuccess: ({ studentInfo, attendanceScheduleInfo }) => {
-      const msg = `${studentInfo}, seu atendimento foi agendado com sucesso para o dia ${format(
+      const msg = `${studentInfo.name}, seu atendimento foi agendado com sucesso para o dia ${format(
         attendanceScheduleInfo[0]?.scheduledDate ?? new Date(),
         "dd/MM/yyyy",
       )}.`;

@@ -15,14 +15,15 @@ export function PrintReportButton() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="outline" title="Imprimir relatório">
+        <Button
+          title="Imprimir relatório"
+          className="border border-primary bg-primary/50 text-foreground transition-none hover:bg-primary/70"
+        >
           <PrinterIcon className="size-4" />
           Imprimir
         </Button>
       </TooltipTrigger>
-      <TooltipContent className="border border-border bg-background">
-        Imprimir relatório
-      </TooltipContent>
+      <TooltipContent>Imprimir relatório</TooltipContent>
     </Tooltip>
   );
 }

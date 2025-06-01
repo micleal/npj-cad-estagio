@@ -100,7 +100,7 @@ export function AppointmentsDataTable<TData, TValue>({
                   <>
                     <div className="flex items-center gap-2">
                       <p className="text-muted-foreground">Presença:</p>
-                      <span className="text-green-500 dark:text-green-400">
+                      <span className="text-green-600 dark:text-green-400">
                         {attendedAppointments.length} / 3
                       </span>
                     </div>

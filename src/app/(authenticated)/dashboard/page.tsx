@@ -1,21 +1,10 @@
 import { redirect } from "next/navigation";
-import { Button } from "~/components/ui/button";
 import { api } from "~/trpc/server";
 import { auth } from "~/server/auth";
-import { DateTimePicker } from "~/components/datetime-picker";
-import { CalendarIcon, PrinterIcon } from "lucide-react";
 import { AppointmentsDataTable } from "~/components/appointments-datatable";
 import { appointmentColumns } from "./_components/appointment-columns";
 import type { Metadata } from "next";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
-import { PrintReportButton } from "~/components/print-report-button";
-import { ShowByAgeDropdown } from "~/components/show-by-age-dropdown";
-
+import { AppointmentsDataTableToolbar } from "~/components/appointments-datatable-toolbar";
 type UserScheduledDates = {
   id: string;
   scheduledDate: Date;
@@ -73,17 +62,7 @@ export default async function Dashboard() {
       <div className="flex flex-col gap-4">
         <section id="appointments" className="flex flex-col gap-4">
           <h2 className="font-medium text-lg">Agendamentos</h2>
-          <div className="flex items-center justify-between gap-2">
-            {session.user.role === "user" && <DateTimePicker />}
-            {session.user.role === "admin" && (
-              <div className="flex items-center gap-2">
-                <PrintReportButton />
-              </div>
-            )}
-            <div className="flex items-center gap-2">
-              <ShowByAgeDropdown />
-            </div>
-          </div>
+          <AppointmentsDataTableToolbar />
           <div className="flex gap-2">
             <AppointmentsDataTable
               columns={appointmentColumns}
@@ -95,7 +74,12 @@ export default async function Dashboard() {
           <section className="mt-2 flex w-full gap-4">
             <div className="flex w-full flex-1 flex-col gap-4">
               <h2 className="font-medium text-lg">Cadastrar estagiário</h2>
-              <div className="flex flex-col gap-2"></div>
+              <div className="flex flex-col gap-2">
+                <p>
+                  Cadastre um estagiário para que ele possa agendar consultas no
+                  sistema.
+                </p>
+              </div>
             </div>
             <div className="flex w-full flex-1 flex-col gap-4">
               <h2 className="font-medium text-lg">Cadastrar administrador</h2>

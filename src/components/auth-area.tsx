@@ -312,6 +312,7 @@ function SignUpForm() {
             password,
             name: `${firstName} ${lastName}`,
             image: image ? await convertImageToBase64(image) : "",
+            // @ts-expect-error - ra is not required
             ra,
             callbackURL: "/dashboard",
             fetchOptions: {
