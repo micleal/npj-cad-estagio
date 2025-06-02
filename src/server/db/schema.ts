@@ -244,7 +244,7 @@ export const attendanceSchedule = createTable("attendance_schedule", (d) => ({
     .notNull(),
   status: d
     .text("status", {
-      enum: ["scheduled", "completed", "absent", "cancelled"],
+      enum: ["scheduled", "attended", "absent", "cancelled"],
     })
     .notNull()
     .$defaultFn(() => "scheduled"),
