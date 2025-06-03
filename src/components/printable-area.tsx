@@ -6,22 +6,10 @@ import { format } from "date-fns";
 import type { Report } from "~/@types";
 import { styles } from "~/lib/print-styles";
 import logo from "~/assets/logo-fmu-1x.png";
+import { PDFViewer } from "@react-pdf/renderer";
 
 import dynamic from "next/dynamic";
 import { Loader2Icon } from "lucide-react";
-
-const PDFViewer = dynamic(
-  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex flex-1 flex-col items-center justify-center gap-1">
-        <Loader2Icon className="animate-spin" />
-        <p>Carregando...</p>
-      </div>
-    ),
-  },
-);
 
 export function PrintableArea({ reports }: { reports: Report[] }) {
   const getStatus = (status: string) => {
