@@ -6,9 +6,7 @@ import type { NextConfig } from "next";
 import "~/env";
 
 const config: NextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ["@react-pdf/renderer"],
-  },
+  serverExternalPackages: ["@react-pdf/renderer"],
   eslint: {
     ignoreDuringBuilds: true,
   },
