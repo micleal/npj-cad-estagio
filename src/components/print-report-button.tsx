@@ -65,9 +65,7 @@ export function PrintReportButton() {
         <DialogHeader>
           <DialogTitle>Imprimir relatório</DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-
-        </DialogDescription>
+        <DialogDescription></DialogDescription>
         <div className="flex flex-col gap-2">
           <Select
             onValueChange={(value) => setSelectedStudent(value)}
@@ -97,7 +95,7 @@ export function PrintReportButton() {
           href={`/admin/print-report?studentId=${selectedStudent}&period=${selectedPeriod}`}
           className={cn(
             buttonVariants({ variant: "default" }),
-            "w-full",
+            "w-full border border-primary bg-primary/50 text-foreground transition-none hover:bg-primary/70",
             isLoading && "cursor-not-allowed",
           )}
         >

@@ -30,6 +30,9 @@ import {
 import { format } from "date-fns";
 import { Badge } from "~/components/ui/badge";
 import { useSession } from "~/lib/auth-client";
+import { api } from "~/trpc/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type UserScheduledDates = {
   id: string;
@@ -72,6 +75,46 @@ function getStatusToText(status: string) {
       </Badge>
     );
   return status;
+}
+
+function useChangeStatus(id: string, status: string) {
+  const router = useRouter();
+  const mutation = api.schedule.changeStatus.useMutation({
+    onSuccess: () => {
+      toast.success("Status alterado com sucesso");
+      router.refresh();
+    },
+    onError: () => {
+      toast.error("Erro ao alterar status");
+    },
+  });
+
+  return () => {
+    mutation.mutate({
+      id: id,
+      status: status,
+    });
+  };
+}
+
+function StatusChangeButton({
+  id,
+  status,
+  disabled,
+  children,
+}: {
+  id: string;
+  status: string;
+  disabled?: boolean;
+  children: React.ReactNode;
+}) {
+  const handleStatusChange = useChangeStatus(id, status);
+
+  return (
+    <DropdownMenuItem disabled={disabled} onClick={handleStatusChange}>
+      {children}
+    </DropdownMenuItem>
+  );
 }
 
 export const appointmentColumns: ColumnDef<UserScheduledDates>[] = [
@@ -204,28 +247,38 @@ export const appointmentColumns: ColumnDef<UserScheduledDates>[] = [
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>Marcar como</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
-                  <DropdownMenuItem
+                  <StatusChangeButton
+                    id={row.original.id}
+                    status="attended"
                     disabled={row.original.status === "attended"}
                   >
                     <CircleCheckIcon className="size-4" />
                     Presente
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
+                  </StatusChangeButton>
+                  <StatusChangeButton
+                    id={row.original.id}
+                    status="scheduled"
                     disabled={row.original.status === "scheduled"}
                   >
                     <CircleAlertIcon className="size-4" />
                     Agendado
-                  </DropdownMenuItem>
-                  <DropdownMenuItem disabled={row.original.status === "absent"}>
+                  </StatusChangeButton>
+                  <StatusChangeButton
+                    id={row.original.id}
+                    status="absent"
+                    disabled={row.original.status === "absent"}
+                  >
                     <CircleMinusIcon className="size-4" />
                     Ausente
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
+                  </StatusChangeButton>
+                  <StatusChangeButton
+                    id={row.original.id}
+                    status="cancelled"
                     disabled={row.original.status === "cancelled"}
                   >
                     <CircleXIcon className="size-4" />
                     Cancelado
-                  </DropdownMenuItem>
+                  </StatusChangeButton>
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
               <DropdownMenuItem>

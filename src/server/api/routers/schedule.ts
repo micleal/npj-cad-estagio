@@ -3,12 +3,53 @@ import { z } from "zod";
 import {
   attendanceSchedule,
   dailyScheduleLimit,
-  session,
   studentInfo,
 } from "~/server/db/schema";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const scheduleRouter = createTRPCRouter({
+  changeStatus: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        status: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, status } = input;
+
+      const toChangeAttendanceSchedule =
+        await ctx.db.query.attendanceSchedule.findFirst({
+          where: (attendanceSchedule, { eq }) => eq(attendanceSchedule.id, id),
+        });
+
+      if (!toChangeAttendanceSchedule) {
+        throw new Error("Attendance schedule not found");
+      }
+
+      await ctx.db
+        .update(attendanceSchedule)
+        .set({
+          status: status as "scheduled" | "attended" | "absent" | "cancelled",
+        })
+        .where(eq(attendanceSchedule.id, id));
+
+      if (status === "cancelled") {
+        await ctx.db
+          .update(dailyScheduleLimit)
+          .set({ currentRegistrations: -1 })
+          .where(
+            eq(
+              dailyScheduleLimit.date,
+              toChangeAttendanceSchedule.scheduledDate.toDateString(),
+            ),
+          );
+      }
+
+      return {
+        message: "Status changed successfully",
+      };
+    }),
   create: protectedProcedure
     .input(
       z.object({
@@ -58,13 +99,24 @@ export const scheduleRouter = createTRPCRouter({
         throw new Error("Schedule is full");
       }
 
-      const schedule = await ctx.db
-        .insert(dailyScheduleLimit)
-        .values({
-          date: startDateString,
-          currentRegistrations: 1,
-        })
-        .returning();
+      let schedule = null;
+      if (!verifySchedule) {
+        schedule = await ctx.db
+          .insert(dailyScheduleLimit)
+          .values({
+            date: startDateString,
+            currentRegistrations: 1,
+          })
+          .returning();
+      } else {
+        schedule = await ctx.db
+          .update(dailyScheduleLimit)
+          .set({
+            currentRegistrations: verifySchedule.currentRegistrations + 1,
+          })
+          .where(eq(dailyScheduleLimit.date, startDateString))
+          .returning();
+      }
 
       if (!schedule[0]) {
         throw new Error("Schedule not found");

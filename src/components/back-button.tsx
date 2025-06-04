@@ -1,12 +1,13 @@
 "use client";
 
 import { ArrowLeftIcon } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
+import { buttonVariants } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import Link from "next/link";
+import { cn } from "~/lib/utils";
 
 export function BackButton() {
-  const router = useRouter();
   const pathname = usePathname();
 
   if (pathname === "/dashboard") {
@@ -16,16 +17,13 @@ export function BackButton() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button
-          type="button"
-          variant="ghost"
-          // size="icon"
-          className="border border-border not-dark:bg-background not-dark:text-foreground not-dark:hover:border-primary/30 not-dark:hover:bg-primary/20 dark:border-transparent"
-          onClick={() => router.back()}
+        <Link
+          href="/dashboard"
+          className={cn(buttonVariants({ variant: "link" }))}
         >
           <ArrowLeftIcon className="size-4" />
           Voltar
-        </Button>
+        </Link>
       </TooltipTrigger>
       <TooltipContent>Voltar para o dashboard</TooltipContent>
     </Tooltip>
