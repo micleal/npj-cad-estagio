@@ -1,4 +1,4 @@
-import { ShieldUserIcon, User } from "lucide-react";
+import { SettingsIcon, ShieldUserIcon, User } from "lucide-react";
 import { auth } from "~/server/auth";
 import { SignOut } from "./sign-out";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -41,12 +42,28 @@ export async function UserButton() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>
-          <div className="flex flex-col text-right">
+          <div className="flex flex-col gap-1 text-right">
             <p className="font-semibold text-sm">{user?.name}</p>
-            <p className="text-muted-foreground text-sx">RA: {user?.ra}</p>
+            {user?.role === "admin" && (
+              <p className="flex flex-row items-center justify-end gap-0.5 text-muted-foreground text-xs">
+                <ShieldUserIcon className="size-4 text-muted-foreground" />
+                Admin
+              </p>
+            )}
+            {user?.role === "user" && (
+              <>
+                <p className="text-muted-foreground text-xs">Estagiário</p>
+                <p className="text-muted-foreground text-xs">RA: {user?.ra}</p>
+              </>
+            )}
           </div>
         </DropdownMenuLabel>
 
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <SettingsIcon className="size-4" />
+          Configurações
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <SignOut />
       </DropdownMenuContent>

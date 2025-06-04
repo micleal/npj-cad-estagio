@@ -66,41 +66,42 @@ export function PrintReportButton() {
           <DialogTitle>Imprimir relatório</DialogTitle>
         </DialogHeader>
         <DialogDescription>
-          <div className="flex flex-col gap-2">
-            <Select
-              onValueChange={(value) => setSelectedStudent(value)}
-              value={selectedStudent ?? undefined}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione o aluno" />
-              </SelectTrigger>
-              <SelectContent>
-                {students?.map((student) => (
-                  <SelectItem key={student.id} value={student.id}>
-                    {student.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <div className="flex justify-between gap-2">
-              <Input
-                type="date"
-                value={selectedPeriod ?? undefined}
-                onChange={(e) => setSelectedPeriod(e.target.value)}
-              />
-            </div>
-          </div>
-          <Link
-            href={`/admin/print-report?studentId=${selectedStudent}&period=${selectedPeriod}`}
-            className={cn(
-              buttonVariants({ variant: "default" }),
-              "w-full",
-              isLoading && "cursor-not-allowed",
-            )}
-          >
-            {isLoading ? "Imprimindo..." : "Imprimir"}
-          </Link>
+
         </DialogDescription>
+        <div className="flex flex-col gap-2">
+          <Select
+            onValueChange={(value) => setSelectedStudent(value)}
+            value={selectedStudent ?? undefined}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Selecione o aluno" />
+            </SelectTrigger>
+            <SelectContent>
+              {students?.map((student) => (
+                <SelectItem key={student.id} value={student.id}>
+                  {student.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {/* <div className="flex justify-between gap-2">
+            <Input
+              type="date"
+              value={selectedPeriod ?? undefined}
+              onChange={(e) => setSelectedPeriod(e.target.value)}
+            />
+          </div> */}
+        </div>
+        <Link
+          href={`/admin/print-report?studentId=${selectedStudent}&period=${selectedPeriod}`}
+          className={cn(
+            buttonVariants({ variant: "default" }),
+            "w-full",
+            isLoading && "cursor-not-allowed",
+          )}
+        >
+          {isLoading ? "Imprimindo..." : "Imprimir"}
+        </Link>
       </DialogContent>
     </Dialog>
   );

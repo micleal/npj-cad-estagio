@@ -77,7 +77,7 @@ export const printRouter = createTRPCRouter({
             not(eq(attendanceSchedule.status, "cancelled")),
         });
 
-      const report: Report[] = studentsInfoData.map((student) => ({
+      const report = studentsInfoData.map((student) => ({
         student: {
           name: student.name ?? "",
           ra: student.ra ?? "",
