@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | NPJ - FMU",
   },
   description: "Sistema de agendamento do NPJ - FMU",
-  icons: [{ rel: "icon", url: "/favicon.png" }],
+  icons: [{ rel: "icon", url: "/favicon.svg" }],
 };
 
 const geist = Geist({

@@ -28,6 +28,49 @@ export function PrintableArea({ reports }: { reports: Report[] }) {
     header2: "Relatório de Ausências",
   };
 
+  const renderTable = (reports: Report[]) => {
+    const scheduledDates = reports
+      .flatMap((report) => report.scheduledDates)
+      .filter((date) => date !== null);
+
+    if (scheduledDates.length <= 0) {
+      return null;
+    }
+
+    return (
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <Text style={styles.header}>{titles.header2}</Text>
+          <Table style={styles.table}>
+            <TH style={styles.tableHeader}>
+              <TD style={styles.tableHead}>RA</TD>
+              <TD style={styles.tableHead}>Data</TD>
+              <TD style={styles.tableHead}>Nome</TD>
+              <TD style={styles.tableHead}>Status</TD>
+            </TH>
+            {reports.map((report, index) => {
+              report.scheduledDates && report.scheduledDates.length > 0 && (
+                <TR style={styles.tableRow} key={report.student.ra}>
+                  <TD style={styles.tableCell}>{report.student.ra}</TD>
+                  <TD style={styles.tableCell}>
+                    {report.scheduledDates?.[index]?.date &&
+                      format(report.scheduledDates[index]?.date, "dd/MM/yyyy")}
+                  </TD>
+                  <TD style={styles.tableCell}>{report.student.name}</TD>
+                  <TD style={styles.tableCell}>
+                    {getStatus(
+                      report.scheduledDates?.[index]?.status ?? "absent",
+                    )}
+                  </TD>
+                </TR>
+              );
+            })}
+          </Table>
+        </View>
+      </Page>
+    );
+  };
+
   const renderPDF = () => (
     <Document title={titles.documentTitle}>
       <Page size="A4" style={styles.page}>
@@ -123,36 +166,6 @@ export function PrintableArea({ reports }: { reports: Report[] }) {
           )}
         </View>
       </Page>
-      {reports.length > 1 && (
-        <Page size="A4" style={styles.page}>
-          <View style={styles.section}>
-            <Text style={styles.header}>{titles.header2}</Text>
-            <Table style={styles.table}>
-              <TH style={styles.tableHeader}>
-                <TD style={styles.tableHead}>RA</TD>
-                <TD style={styles.tableHead}>Data</TD>
-                <TD style={styles.tableHead}>Nome</TD>
-                <TD style={styles.tableHead}>Status</TD>
-              </TH>
-              {reports.map((report) => (
-                <TR style={styles.tableRow} key={report.student.ra}>
-                  <TD style={styles.tableCell}>{report.student.ra}</TD>
-                  <TD style={styles.tableCell}>
-                    {format(
-                      report.scheduledDates?.[0]?.date ?? new Date(),
-                      "dd/MM/yyyy",
-                    )}
-                  </TD>
-                  <TD style={styles.tableCell}>{report.student.name}</TD>
-                  <TD style={styles.tableCell}>
-                    {getStatus(report.scheduledDates?.[0]?.status ?? "absent")}
-                  </TD>
-                </TR>
-              ))}
-            </Table>
-          </View>
-        </Page>
-      )}
     </Document>
   );
 
