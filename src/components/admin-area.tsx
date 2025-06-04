@@ -14,13 +14,6 @@ export async function AdminArea() {
   return (
     <div className="flex items-center gap-2">
       <BackButton />
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Link href="/admin">Admin Area</Link>
-        </TooltipTrigger>
-        <TooltipContent>Ir para a área administrativa</TooltipContent>
-      </Tooltip>
-      <PrintReportButton />
     </div>
   );
 }

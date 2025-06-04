@@ -5,6 +5,9 @@ import { AppointmentsDataTable } from "~/components/appointments-datatable";
 import { appointmentColumns } from "./_components/appointment-columns";
 import type { Metadata } from "next";
 import { AppointmentsDataTableToolbar } from "~/components/appointments-datatable-toolbar";
+import { CadAdminForm } from "~/components/cad-admin-form";
+import { CadUserForm } from "~/components/cad-user-form";
+
 type UserScheduledDates = {
   id: string;
   scheduledDate: Date;
@@ -56,22 +59,16 @@ export default async function Dashboard() {
             />
           </div>
         </section>
-        {/* {session.user.role === "admin" && (
+        {session.user.role === "admin" && (
           <section className="mt-2 flex w-full gap-4">
             <div className="flex w-full flex-1 flex-col gap-4">
-              <h2 className="font-medium text-lg">Cadastrar estagiário</h2>
-              <div className="flex flex-col gap-2">
-                <p>
-                  Cadastre um estagiário para que ele possa agendar consultas no
-                  sistema.
-                </p>
-              </div>
+              <CadUserForm />
             </div>
             <div className="flex w-full flex-1 flex-col gap-4">
-              <h2 className="font-medium text-lg">Cadastrar administrador</h2>
+              <CadAdminForm />
             </div>
           </section>
-        )} */}
+        )}
       </div>
     </div>
   );
