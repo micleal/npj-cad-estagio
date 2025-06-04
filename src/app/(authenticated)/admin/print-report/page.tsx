@@ -8,10 +8,15 @@ export default async function PrintPage({
   searchParams: Promise<{ studentId: string; period: string }>;
 }) {
   const { studentId, period } = await searchParams;
+  let studentIdToPrint = studentId;
+
+  if (studentId === "all") {
+    studentIdToPrint = "";
+  }
 
   const reports = await api.print.report({
-    studentId,
-    period
+    studentId: studentIdToPrint,
+    period,
   });
 
   return (

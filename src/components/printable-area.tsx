@@ -8,9 +8,6 @@ import { styles } from "~/lib/print-styles";
 import logo from "~/assets/logo-fmu-1x.png";
 import { PDFViewer } from "@react-pdf/renderer";
 
-import dynamic from "next/dynamic";
-import { Loader2Icon } from "lucide-react";
-
 export function PrintableArea({ reports }: { reports: Report[] }) {
   const getStatus = (status: string) => {
     if (status === "scheduled") {
@@ -74,7 +71,7 @@ export function PrintableArea({ reports }: { reports: Report[] }) {
                   <TD style={styles.tableHead}>Data</TD>
                   <TD style={styles.tableHead}>Status</TD>
                 </TH>
-                {reports[0]?.scheduledDates.map((scheduledDate) => (
+                {reports[0]?.scheduledDates?.map((scheduledDate) => (
                   <TR
                     style={styles.tableRow}
                     key={`${scheduledDate.date.toISOString()}-${scheduledDate.status}`}
@@ -142,13 +139,13 @@ export function PrintableArea({ reports }: { reports: Report[] }) {
                   <TD style={styles.tableCell}>{report.student.ra}</TD>
                   <TD style={styles.tableCell}>
                     {format(
-                      report.scheduledDates[0]?.date ?? new Date(),
+                      report.scheduledDates?.[0]?.date ?? new Date(),
                       "dd/MM/yyyy",
                     )}
                   </TD>
                   <TD style={styles.tableCell}>{report.student.name}</TD>
                   <TD style={styles.tableCell}>
-                    {getStatus(report.scheduledDates[0]?.status ?? "absent")}
+                    {getStatus(report.scheduledDates?.[0]?.status ?? "absent")}
                   </TD>
                 </TR>
               ))}

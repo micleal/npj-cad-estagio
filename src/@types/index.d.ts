@@ -23,13 +23,21 @@ export type ReportPeriod = {
 
 export type Report = {
   student: {
-    name: string;
-    ra: string;
-    course: string;
-    period: string;
+      name: string;
+      ra: string;
+      course: string;
+      period: string;
   };
-  scheduledDates: ScheduledDate[];
-  reportPeriod: ReportPeriod;
+  scheduledDates: {
+      date: Date;
+      status: ScheduledDateStatus;
+  }[] | undefined;
+  reportPeriod: {
+    year: number;
+    semester: number;
+    type: "year" | "semester";
+    all: boolean;
+  };
   attendance: {
     total: number;
     present: number;

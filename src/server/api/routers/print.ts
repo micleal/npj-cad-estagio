@@ -8,16 +8,16 @@ export const printRouter = createTRPCRouter({
   report: protectedProcedure
     .input(
       z.object({
-        studentId: z.string().optional(),
+        studentId: z.string().default("all"),
         period: z.string().default("all"),
-        year: z.number().optional(),
-        semester: z.number().optional(),
+        year: z.number().default(new Date().getFullYear()),
+        semester: z.number().default(new Date().getFullYear() % 2 === 0 ? 1 : 2),
       }),
     )
     .query(async ({ ctx, input }) => {
       const { studentId, period, year, semester } = input;
-
-      if (studentId) {
+      
+      if (studentId && studentId !== "all" && studentId !== "") {
         const studentInfoData = await ctx.db
           .select()
           .from(studentInfo)

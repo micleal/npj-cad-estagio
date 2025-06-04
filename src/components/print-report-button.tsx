@@ -77,6 +77,7 @@ export function PrintReportButton() {
               <SelectValue placeholder="Selecione o aluno" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all">Todos</SelectItem>
               {students?.map((student) => (
                 <SelectItem key={student.id} value={student.id}>
                   {student.name}
