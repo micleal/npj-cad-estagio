@@ -55,12 +55,12 @@ export function SignIn() {
           </div>
 
           <div className="grid gap-2">
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <Label htmlFor="password">Senha</Label>
               <Link href="#" className="ml-auto inline-block text-sm underline">
                 Esqueceu sua senha?
               </Link>
-            </div>
+            </div> */}
 
             <Input
               id="password"

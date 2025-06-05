@@ -60,11 +60,11 @@ export async function UserButton() {
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        {/* <DropdownMenuItem>
           <SettingsIcon className="size-4" />
           Configurações
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator /> */}
         <SignOut />
       </DropdownMenuContent>
     </DropdownMenu>
