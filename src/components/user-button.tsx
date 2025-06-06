@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import Link from "next/link";
 
 export async function UserButton() {
   const session = await auth();
@@ -60,11 +60,13 @@ export async function UserButton() {
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
-        {/* <DropdownMenuItem>
-          <SettingsIcon className="size-4" />
-          Configurações
+        <DropdownMenuItem asChild>
+          <Link href="/settings" className="w-full">
+            <SettingsIcon className="size-4" />
+            Configurações
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator /> */}
+        <DropdownMenuSeparator />
         <SignOut />
       </DropdownMenuContent>
     </DropdownMenu>
