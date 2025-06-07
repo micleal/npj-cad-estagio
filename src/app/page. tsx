@@ -1,0 +1,122 @@
+
+    'use client';
+
+import { useState } from 'react';
+
+export default function AgendamentoPage() {
+  // Estados para armazenar os valores dos campos do formulário
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [data, setData] = useState('');
+  const [horario, setHorario] = useState('');
+  const [mensagem, setMensagem] = useState('');
+
+  // Função chamada ao enviar o formulário
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Monta o objeto com os dados do agendamento
+    const novoAgendamento = {
+      nome,
+      email,
+      data,
+      horario,
+    };
+
+    try {
+      const resposta = await fetch('/api/agendamentos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(novoAgendamento),
+      });
+
+      if (resposta.ok) {
+        setMensagem('Agendamento feito com sucesso! 💖');
+        // Limpa os campos
+        setNome('');
+        setEmail('');
+        setData('');
+        setHorario('');
+      } else {
+        setMensagem('Erro ao agendar. Tente novamente.');
+      }
+    } catch (erro) {
+      console.error(erro);
+      setMensagem('Erro na comunicação com o servidor.');
+    }
+  };
+
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Agendamento de Atendimento</h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded shadow-md w-full max-w-md space-y-4"
+      >
+        <div>
+          <label className="block mb-1 font-medium">Nome completo</label>
+          <input
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">E-mail</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Data do atendimento</label>
+          <input
+            type="date"
+            value={data}
+            onChange={(e) => setData(e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Horário desejado</label>
+          <input
+            type="time"
+            value={horario}
+            onChange={(e) => setHorario(e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600 transition"
+        >
+          Agendar
+        </button>
+      </form>
+
+      {mensagem && <p className="mt-4 text-center text-pink-600">{mensagem}</p>}
+    </main>
+  );
+}
+
+    
+  
+
+```
+src/app/agendamento/page.tsx
+```
+
+
+            
