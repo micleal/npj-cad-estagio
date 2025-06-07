@@ -9,6 +9,12 @@ import { db } from "~/server/db";
 
 import { env } from "~/env";
 
+export enum Role {
+  USER = "user",
+  ADMIN = "admin",
+  STUDENT = "student",
+}
+
 export const auth = betterAuth({
   appName: "Cadastro de atendimentos NPJ",
   baseURL: env.BETTER_AUTH_URL.includes("http://")

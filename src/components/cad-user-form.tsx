@@ -22,6 +22,8 @@ import {
 } from "./ui/card";
 import { api } from "~/trpc/react";
 import { signUp } from "~/lib/auth-client";
+import { toast } from "sonner";
+import { Role } from "~/server/auth/config";
 
 const cadUserFormSchema = z.object({
   name: z.string().min(1, { message: "Nome é obrigatório" }),
@@ -33,6 +35,8 @@ const cadUserFormSchema = z.object({
 });
 
 export function CadUserForm() {
+  const studentMutation = api.student.create.useMutation();
+
   const form = useForm<z.infer<typeof cadUserFormSchema>>({
     resolver: zodResolver(cadUserFormSchema),
   });
@@ -43,16 +47,22 @@ export function CadUserForm() {
     const { data: user, error } = await signUp.email({
       name,
       email,
-      ra,
       password,
       role: "user",
+      ra,
+      fetchOptions: {
+        onSuccess: async ({ data }) => {
+          await studentMutation.mutate({
+            ra,
+            name,
+          });
+          toast.success("Estagiário cadastrado com sucesso");
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+      },
     });
-
-    if (error) {
-      console.error(error);
-    }
-
-    console.log(user);
   }
 
   return (

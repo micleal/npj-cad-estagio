@@ -20,6 +20,7 @@ import { Label } from "~/components/ui/label";
 import { signUpAtom } from "~/hooks/use-signup";
 import { signUp } from "~/lib/auth-client";
 import { convertImageToBase64 } from "~/lib/image";
+import { Role } from "~/server/auth/config";
 import { api } from "~/trpc/react";
 
 export function SignUp() {
@@ -186,7 +187,7 @@ export function SignUp() {
                 password,
                 name: `${firstName} ${lastName}`,
                 image: image ? await convertImageToBase64(image) : "",
-                role: "user",
+                role: Role.USER,
                 ra,
                 callbackURL: "/dashboard",
                 fetchOptions: {
