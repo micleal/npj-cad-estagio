@@ -281,14 +281,14 @@ export const appointmentColumns: ColumnDef<UserScheduledDates>[] = [
                   </StatusChangeButton>
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <Pencil className="size-4" />
                 Editar
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Trash className="size-4" />
                 Excluir
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         );
