@@ -21,10 +21,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "~/components/ui/dropdown-menu";
 
 import { format } from "date-fns";
@@ -244,43 +246,45 @@ export const appointmentColumns: ColumnDef<UserScheduledDates>[] = [
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <DropdownMenuSub>
+              {/* <DropdownMenuSub>
                 <DropdownMenuSubTrigger>Marcar como</DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                  <StatusChangeButton
-                    id={row.original.id}
-                    status="attended"
-                    disabled={row.original.status === "attended"}
-                  >
-                    <CircleCheckIcon className="size-4" />
-                    Presente
-                  </StatusChangeButton>
-                  <StatusChangeButton
-                    id={row.original.id}
-                    status="scheduled"
-                    disabled={row.original.status === "scheduled"}
-                  >
-                    <CircleAlertIcon className="size-4" />
-                    Agendado
-                  </StatusChangeButton>
-                  <StatusChangeButton
-                    id={row.original.id}
-                    status="absent"
-                    disabled={row.original.status === "absent"}
-                  >
-                    <CircleMinusIcon className="size-4" />
-                    Ausente
-                  </StatusChangeButton>
-                  <StatusChangeButton
-                    id={row.original.id}
-                    status="cancelled"
-                    disabled={row.original.status === "cancelled"}
-                  >
-                    <CircleXIcon className="size-4" />
-                    Cancelado
-                  </StatusChangeButton>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
+                <DropdownMenuSubContent> */}
+              <DropdownMenuLabel>Marcar como</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <StatusChangeButton
+                id={row.original.id}
+                status="attended"
+                disabled={row.original.status === "attended"}
+              >
+                <CircleCheckIcon className="size-4" />
+                Presente
+              </StatusChangeButton>
+              <StatusChangeButton
+                id={row.original.id}
+                status="scheduled"
+                disabled={row.original.status === "scheduled"}
+              >
+                <CircleAlertIcon className="size-4" />
+                Agendado
+              </StatusChangeButton>
+              <StatusChangeButton
+                id={row.original.id}
+                status="absent"
+                disabled={row.original.status === "absent"}
+              >
+                <CircleMinusIcon className="size-4" />
+                Ausente
+              </StatusChangeButton>
+              <StatusChangeButton
+                id={row.original.id}
+                status="cancelled"
+                disabled={row.original.status === "cancelled"}
+              >
+                <CircleXIcon className="size-4" />
+                Cancelado
+              </StatusChangeButton>
+              {/* </DropdownMenuSubContent>
+              </DropdownMenuSub> */}
               {/* <DropdownMenuItem>
                 <Pencil className="size-4" />
                 Editar
