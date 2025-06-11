@@ -1,6 +1,7 @@
 "use client";
 
 import { z } from "zod";
+import { nanoid } from "nanoid";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -21,6 +22,7 @@ import {
   CardDescription,
 } from "./ui/card";
 import { signUp } from "~/lib/auth-client";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const cadAdminFormSchema = z.object({
@@ -32,6 +34,8 @@ const cadAdminFormSchema = z.object({
 });
 
 export function CadAdminForm() {
+  const [loading, setLoading] = useState(false);
+
   const form = useForm<z.infer<typeof cadAdminFormSchema>>({
     resolver: zodResolver(cadAdminFormSchema),
   });
@@ -40,10 +44,29 @@ export function CadAdminForm() {
     const { name, email, password } = data;
 
     const { data: user, error } = await signUp.email({
-      name,
       email,
       password,
+      name,
+      // @ts-expect-error - ra is not required
       role: "admin",
+      ra: nanoid(),
+      callbackURL: "/dashboard",
+      fetchOptions: {
+        onResponse: () => {
+          setLoading(false);
+        },
+        onRequest: () => {
+          setLoading(true);
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+        onSuccess: async ({ data }) => {
+          toast.success(
+            `Admin ${data.name} (${data.email}) criado com sucesso.`,
+          );
+        },
+      },
     });
 
     if (error) {

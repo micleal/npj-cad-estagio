@@ -23,7 +23,7 @@ export default async function SettingsPage() {
   return (
     <div className="container mx-auto my-2 flex w-full flex-1 flex-col gap-4">
       <h1 className="font-bold text-2xl">Configurações</h1>
-      <div className="flex md:grid md:grid-cols-2 gap-4">
+      <div className="flex gap-4 md:grid md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Dados do usuário</CardTitle>

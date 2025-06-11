@@ -312,6 +312,7 @@ function SignUpForm() {
             password,
             name: `${firstName} ${lastName}`,
             image: image ? await convertImageToBase64(image) : "",
+            // role: 'admin',
             // @ts-expect-error - ra is not required
             ra,
             callbackURL: "/dashboard",
@@ -330,6 +331,7 @@ function SignUpForm() {
                   ra,
                   name: `${firstName} ${lastName}`,
                 });
+                
               },
             },
           });

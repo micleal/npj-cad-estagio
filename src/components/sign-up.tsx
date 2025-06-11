@@ -187,7 +187,7 @@ export function SignUp() {
                 password,
                 name: `${firstName} ${lastName}`,
                 image: image ? await convertImageToBase64(image) : "",
-                role: Role.USER,
+                role,
                 ra,
                 callbackURL: "/dashboard",
                 fetchOptions: {
